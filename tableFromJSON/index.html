@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <h1>Smartphone Management</h1>
+    <p>Add a New Smartphone</p>
+    <label for="">ID</label>
+    <input type="text"><br>
+    <label for="">Brand</label>
+    <input type="text"><br>
+    <label for="">Model</label>
+    <input type="text"><br>
+    <label for="">Price</label>
+    <input type="text"><br>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </thead>
+        <tbody id="body">
+        </tbody>
+        <button onclick="deleteElement()"></button>
+    </table>
+    <script>
+        function deleteElement(id){
+            const element = document.getElementById(id);
+            element.remove();
+            document.getElementById(id).style.color = "#f0f";
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+        fetch("smartphone.json")
+        .then(response => response.json())
+        .then(value=>value.forEach(value => {
+            const valueDisplay = document.getElementById("body");
+            valueDisplay.appendChild(document.createElement('tr'));
+            valueDisplay.setAttribute("id", value.brand);
+            // Create HTML elements to display the JSON value
+            const idElement = document.createElement("td");
+            idElement.textContent = value.id;
+            const brandElement = document.createElement("td");
+            brandElement.textContent = value.brand;
+            const modelElement = document.createElement("td");
+            modelElement.textContent = value.model;
+            const priceElement = document.createElement("td");
+            priceElement.textContent = value.price;
+            const actionsElement = document.createElement('td');
+            actionsElement.innerHTML = `<button>Edit</button><button onclick='deleteElement("${value.brand}")'>delete</button>`;
+            // Append the elements to the "valueDisplay"
+            valueDisplay.appendChild(document.createElement('tr'));
+            valueDisplay.appendChild(idElement);
+            valueDisplay.appendChild(brandElement);
+            valueDisplay.appendChild(modelElement);
+            valueDisplay.appendChild(priceElement);
+            valueDisplay.appendChild(actionsElement);
+            
+        })
+    )
+        .catch(error => console.error(error));
+    })
+
+    </script>
+</body>
+</html>

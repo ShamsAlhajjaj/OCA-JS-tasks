@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let jsonObj = [];
+        document.addEventListener("DOMContentLoaded", function () {
+        fetch("smartphone.json")
+        .then(response => response.json())
+        .then(value=>value.forEach(value => {
+        // console.log(JSON.stringify(value));
+        let strValue = JSON.stringify(value);
+        // console.log(strValue);
+        jsonObj.push(strValue);
+        }))
+    })
+    console.log(jsonObj[]);
+        // for (let i = 0; i < jsonObj.length; i++) {
+        //     if (jsonObj[i].Id === 3) {
+        //         jsonObj[i].Username = "Thomas";
+        //         break;
+        // }
+
+    </script>
+</body>
+</html>
